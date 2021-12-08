@@ -1,41 +1,102 @@
-# https://hub.docker.com
 
-start a postgres instance
+# Comandos
+
+**exibe todos os containers em execução no momento**
+```bash
+docker ps
+```
+
+**exibe todos os containers, independentemente de estarem em execução ou não**
+```bash
+docker ps -a
+``` 
+
+**conecta o terminal que estamos utilizando com o do container**
+```bash
+docker run -it NOME_DA_IMAGEM
+```
+
+**inicia o container com id em questão**
+```bash
+docker start ID_CONTAINER
+```
+
+**interrompe o container com id em questão**
+```bash
+docker stop ID_CONTAINER
+```
+
+**inicia o container com id em questão e integra os terminais, além de permitir interação entre ambos**
+```bash
+docker start -a -i ID_CONTAINER
+```
+
+**remove o container com id em questão**
+```bash
+docker rm ID_CONTAINER
+```
+
+**remove todos os containers que estão parados**
+```bash
+docker container prune
+```
+
+**remove a imagem passada como parâmetro**
+```bash
+docker rmi NOME_DA_IMAGEM
+```
+
+**ao executar, dá um nome ao container**
+```bash
+docker run -d -P --name NOME dockersamples/static-site
+```
+
+**define uma porta específica para ser atribuída à porta 80 do container, neste caso 12345**
+```bash
+docker run -d -p 12345:80 dockersamples/static-site
+```
+
+**define uma variável de ambiente AUTHOR com o valor Fulano no container criado**
+```bash
+docker run -d -P -e AUTHOR="Fulano" dockersamples/static-site
+```
+
+
+
+
+
+
+**hub docker**
+```bash
+https://hub.docker.com
+```
+
+**start a postgres instance**
+```bash
 https://hub.docker.com/_/postgres
+```
 
-# $ docker run --name postgres -e POSTGRES_PASSWORD=docker -d postgres
+```bash
+docker run --name postgres -e POSTGRES_PASSWORD=docker -d postgres
+```
 
-listar docker em execucao
-# $ docker ps
+**start a postgres instance setando a porta**
+```bash
+docker run --name postgres -e POSTGRES_PASSWORD=docker -p 5433:5432 -d postgres
+```
 
-listar docker que estão dormindo
-# $ docker ps -a
+**logs da imagem**
+```bash
+docker logs ID/IMAGE
+```
 
-parar docker
-# $ docker stop ID
+**status da imagem**
+```bash
+docker stats ID/IMAGE
+```
 
-excluir docker
-# $ docker rm ID
-
-start a postgres instance setando a porta
-# $ docker run --name postgres -e POSTGRES_PASSWORD=docker -p 5433:5432 -d postgres
-
-
-# $ docker logs ID/IMAGE
-# $ docker stats ID/IMAGE
-
-startar docker
-# $ docker start ID/IMAGE
-
-
-# $ docker exec -it postgres bash
-
-
-# Use postgres/example user/password credentials
-
-
-# docker-compose.yml
-
+**arquivo docker-compose.yml**
+```bash
 version: '3.1'
 
 services:
@@ -51,9 +112,10 @@ services:
     restart: always
     ports:
       - 8080:8080
+```
 
-# docker-compose.yml
-
+**docker-compose.yml**
+```bash
 version: '3.1'
 
 services:
@@ -82,3 +144,6 @@ volumes:
     db_vol:
         external:
             name: "postgres-v12"
+```
+
+
