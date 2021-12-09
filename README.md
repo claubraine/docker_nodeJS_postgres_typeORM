@@ -1,3 +1,86 @@
+# Projeto Node.JS + PostgreSQL + typeORM
+
+**hub docker**
+```bash
+https://hub.docker.com
+```
+
+**start a postgres instance**
+```bash
+https://hub.docker.com/_/postgres
+```
+
+```bash
+docker run --name postgres -e POSTGRES_PASSWORD=docker -d postgres
+```
+
+**start a postgres instance setando a porta**
+```bash
+docker run --name postgres -e POSTGRES_PASSWORD=docker -p 5433:5432 -d postgres
+```
+
+**logs da imagem**
+```bash
+docker logs ID/IMAGE
+```
+
+**status da imagem**
+```bash
+docker stats ID/IMAGE
+```
+
+# Configurações opcionais
+
+**arquivo docker-compose.yml**
+```bash
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+```
+
+**docker-compose.yml**
+```bash
+version: '3.1'
+
+services:
+
+    postgres:
+        image: postgres:12
+        container_name: "postgres-v12"
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_PASSWORD: admin
+        volumes:
+            - db_vol:/var/lib/postgresql/data
+
+    pgadmin:
+        image: dpage/pgadmin4
+        container_name: pgadmin4
+        ports:
+            - 3333:80
+        environment:
+            PGADMIN_DEFAULT_EMAIL: admin
+            PGADMIN_DEFAULT_PASSWORD: admin
+
+
+volumes:
+    db_vol:
+        external:
+            name: "postgres-v12"
+```
 
 # Comandos Docker
 
@@ -62,88 +145,5 @@ docker run -d -P -e AUTHOR="Fulano" dockersamples/static-site
 ```
 
 
-
-
-
-
-**hub docker**
-```bash
-https://hub.docker.com
-```
-
-**start a postgres instance**
-```bash
-https://hub.docker.com/_/postgres
-```
-
-```bash
-docker run --name postgres -e POSTGRES_PASSWORD=docker -d postgres
-```
-
-**start a postgres instance setando a porta**
-```bash
-docker run --name postgres -e POSTGRES_PASSWORD=docker -p 5433:5432 -d postgres
-```
-
-**logs da imagem**
-```bash
-docker logs ID/IMAGE
-```
-
-**status da imagem**
-```bash
-docker stats ID/IMAGE
-```
-
-**arquivo docker-compose.yml**
-```bash
-version: '3.1'
-
-services:
-
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: example
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-```
-
-**docker-compose.yml**
-```bash
-version: '3.1'
-
-services:
-
-    postgres:
-        image: postgres:12
-        container_name: "postgres-v12"
-        ports:
-            - 5432:5432
-        environment:
-            POSTGRES_PASSWORD: admin
-        volumes:
-            - db_vol:/var/lib/postgresql/data
-
-    pgadmin:
-        image: dpage/pgadmin4
-        container_name: pgadmin4
-        ports:
-            - 3333:80
-        environment:
-            PGADMIN_DEFAULT_EMAIL: admin
-            PGADMIN_DEFAULT_PASSWORD: admin
-
-
-volumes:
-    db_vol:
-        external:
-            name: "postgres-v12"
-```
 
 
